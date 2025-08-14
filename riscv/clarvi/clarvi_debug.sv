@@ -104,11 +104,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         case (db_instr.op)
             INVALID: $write("%s", db_instr.op.name);
             JAL:  begin
-			        $write("%s\t%s, %0d\t\t%s, target = 0x%h", db_instr.op.name, db_instr.rd, $signed(db_instr.immediate), register_result, db_branch_target);
+			        $write("%s\t%s, %0d\t\t\ttarget = 0x%h", db_instr.op.name, db_instr.rd.name, $signed(db_instr.immediate), db_branch_target);
 			        if(db_branch_target==debug_pc) // if branching on the spot, finish
 					  $finish();
 			       end
-            JALR: $write("%s\t%s, %s, %0d\t\t%s, %s, target = 0x%h", db_instr.op.name, db_instr.rd, db_instr.rs1, $signed(db_instr.immediate), register_result, register_values, db_branch_target);
+            JALR: $write("%s\t%s, %s, %0d\t\t%s, %s, target = 0x%h", db_instr.op.name, db_instr.rd.name, db_instr.rs1, $signed(db_instr.immediate), register_result, register_values, db_branch_target);
             ADD, SUB, SLT, SLTU, XOR, OR, AND, SL, SRL, SRA: begin
                 if (db_instr.immediate_used)
                     $write("%s%s\t%s, %s, %0d\t\t%s, %s", db_instr.op.name, "I", db_instr.rd.name, db_instr.rs1.name, $signed(db_instr.immediate), register_result, register_values);
@@ -116,13 +116,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                     $write("%s\t%s, %s, %s\t\t%s, %s", db_instr.op.name, db_instr.rd.name, db_instr.rs1.name, db_instr.rs2, register_result, register_values);
             end
             BEQ, BNE, BLT, BGE, BLTU, BGEU:
-                $write("%s\t%s, %s, 0x%h\t%s, branch %s", db_instr.op.name, db_instr.rs1, db_instr.rs2, db_branch_target, register_values, db_branch_taken ? "taken" : "not taken");
+                $write("%s\t%s, %s, 0x%h\t%s, branch %s", db_instr.op.name, db_instr.rs1.name, db_instr.rs2.name, db_branch_target, register_values, db_branch_taken ? "taken" : "not taken");
             LOAD:  $write("L%s%s\t%s, %0d(%s)\t\t%s = mem[0x%h], %s",  db_instr.memory_width, db_instr.memory_read_unsigned ? "U" : "", db_instr.rd,  $signed(db_instr.immediate), db_instr.rs1, register_result, db_mem_address, register_values);
-            STORE: $write("S%s\t%s, %0d(%s)\t\tmem[%h] := 0x%h, %s",  db_instr.memory_width, db_instr.rs2, $signed(db_instr.immediate), db_instr.rs1, db_mem_address, db_rs2_value, register_values);
+            STORE: $write("S%s\t%s, %0d(%s)\t\tmem[%h] := 0x%h, %s",  db_instr.memory_width.name, db_instr.rs2.name, $signed(db_instr.immediate), db_instr.rs1.name, db_mem_address, db_rs2_value, register_values);
             ECALL, EBREAK, MRET, WFI, FENCE, FENCE_I:
                 $write("%s", db_instr.op.name);
             CSRRW, CSRRS, CSRRC:
-                $write("%s\t%s, %s, %s", db_instr.op.name, db_instr.rd, csr, db_instr.immediate_used ? $sformatf("%0d", db_instr.rs1) : db_instr.rs1.name);
+                $write("%s\t%s, %s, %s", db_instr.op.name, db_instr.rd.name, csr.name, db_instr.immediate_used ? $sformatf("%0d", db_instr.rs1) : db_instr.rs1.name);
             default: $write("%s\t%s, 0x%h\t\t%s", db_instr.op.name, db_instr.rd.name, db_instr.immediate, register_result);
         endcase
 
