@@ -31,7 +31,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 CSRRW, CSRRS, CSRRC:
                     // catch writes to dscratch and output them
                     if (ex_ma_instr.funct12 == DOUTHEX)
-                        $display("Debug output: %s = 0x%h", ex_ma_instr.rs1.name, dscratch);
+					  begin
+						 $display("******************************************************************************");
+                         $display("* Debug output: %s = 0x%h", ex_ma_instr.rs1.name, dscratch);
+						 $display("******************************************************************************");
+						end
                     else if (ex_ma_instr.funct12 == DOUTCHAR)
                         $write("%c", dscratch);
                     else if (ex_ma_instr.funct12 == DOUTINT)
