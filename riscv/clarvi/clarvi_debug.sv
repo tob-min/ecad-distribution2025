@@ -113,7 +113,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 if (db_instr.immediate_used)
                     $write("%s%s\t%s, %s, %0d\t\t%s, %s", db_instr.op.name, "I", db_instr.rd.name, db_instr.rs1.name, $signed(db_instr.immediate), register_result, register_values);
                 else
-                    $write("%s\t%s, %s, %s\t\t%s, %s", db_instr.op.name, db_instr.rd.name, db_instr.rs1.name, db_instr.rs2, register_result, register_values);
+                    $write("%s\t%s, %s, %s\t\t%s, %s", db_instr.op.name, db_instr.rd.name, db_instr.rs1.name, db_instr.rs2.name, register_result, register_values);
             end
             BEQ, BNE, BLT, BGE, BLTU, BGEU:
                 $write("%s\t%s, %s, 0x%h\t%s, branch %s", db_instr.op.name, db_instr.rs1.name, db_instr.rs2.name, db_branch_target, register_values, db_branch_taken ? "taken" : "not taken");
