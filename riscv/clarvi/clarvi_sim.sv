@@ -1,5 +1,6 @@
 /*******************************************************************************
 Copyright (c) 2016, Robert Eady
+Copyright (c) 2025, Simon W. Moore
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -26,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 `timescale 1ns/10ps
 
-module clarvi_sim #(LOADHEX="mem.hex")();
+module clarvi_sim #(LOADHEX=`RISCV_BINARY)();
     logic clock = 1;
     logic reset = 0;
 
@@ -125,7 +126,12 @@ module clarvi_sim #(LOADHEX="mem.hex")();
     );
 
     initial begin
-        forever #5 clock = ~clock;
+       forever #5 clock = ~clock;
+	end
+
+    initial begin
+	   #10000000 $display("Stopping the simulation after a million clock cycles.");
+	             $finish();
     end
 
 endmodule

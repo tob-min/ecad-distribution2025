@@ -71,7 +71,6 @@ $(BUILD)/mem.hex: $(BUILD)/mem.txt
 dirs:
 	mkdir -p $(BUILD)
 
-
 # run simulation
 spike: all
 	spike --isa=rv32i -m0x0:0x10000 $(BUILD)/$(PROJECT).elf
@@ -83,6 +82,16 @@ spike-log: all
 # run simulation step by step
 spike-debug: all
 	spike --isa=rv32i -d -m0x0:0x10000 $(BUILD)/$(PROJECT).elf
+
+# run simulation on Verilator
+clarvi: ../clarvi/obj_dir/Vclarvi_sim
+	../clarvi/obj_dir/Vclarvi_sim
+
+# build the clarvi verilog simulator
+../clarvi/obj_dir/Vclarvi_sim:
+	@echo "##############################################################################"
+	@echo "# Building a simulator for clarvi"
+	make -C ../clarvi
 
 # update the memory files inside the FPGA bitfile
 update-mem:	all
