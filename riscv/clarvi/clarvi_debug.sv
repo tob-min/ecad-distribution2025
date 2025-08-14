@@ -23,6 +23,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *******************************************************************************/   
 
+   logic [63:0] bubble_counter;
 
    always_ff @(posedge clock) begin
         // it is most convenient to catch instructions in the MA stage.
@@ -88,7 +89,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
         if (db_invalid) begin
             // the stage is invalid (e.g. because we took a branch)
-            $display("---bubble---");
+		    bubble_counter <= bubble_counter+1;
+            $display("---bubble number %1d ---", bubble_counter);
             return;
         end
 
