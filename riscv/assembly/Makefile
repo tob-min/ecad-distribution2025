@@ -84,7 +84,7 @@ spike-debug: all
 	spike --isa=rv32i -d -m0x0:0x10000 $(BUILD)/$(PROJECT).elf
 
 # run simulation on Verilator
-clarvi: all ../clarvi/obj_dir/Vclarvi_sim
+clarvi-sim: all ../clarvi/obj_dir/Vclarvi_sim
 	../clarvi/obj_dir/Vclarvi_sim
 
 # build the clarvi verilog simulator
