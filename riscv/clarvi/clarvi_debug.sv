@@ -33,7 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                     if (ex_ma_instr.funct12 == DOUTHEX)
 					  begin
 						 $display("******************************************************************************");
-                         $display("* Debug output: %s = 0x%h", ex_ma_instr.rs1.name, dscratch);
+                         $display("* Debug output: %s = 0x%h = %d", ex_ma_instr.rs1.name, dscratch, dscratch);
 						 $display("******************************************************************************");
 						end
                     else if (ex_ma_instr.funct12 == DOUTCHAR)
